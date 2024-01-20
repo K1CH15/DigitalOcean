@@ -113,7 +113,7 @@ WSGI_APPLICATION = 'base.wsgi.application'
 import os
 import sys
 import dj_database_url
-[label django_app/settings.py]
+
 if DEVELOPMENT_MODE is True:
     DATABASES = {
         "default": {
