@@ -25,15 +25,16 @@ mimetypes.add_type("text/css", ".css", True)
 
 from django.core.management.utils import get_random_secret_key
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+
+# SECRET_KEY = 'django-insecure-ac3ry3hntr5(lg86t5%%9wwxznr6+6fa1dj*=l5ee%r)!!k!%k'
+
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-ac3ry3hntr5(lg86t5%%9wwxznr6+6fa1dj*=l5ee%r)!!k!%k')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
-DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
-
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -109,24 +110,19 @@ WSGI_APPLICATION = 'base.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-import os
-import sys
-import dj_database_url
-
-if DEVELOPMENT_MODE is True:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    if os.getenv("DATABASE_URL", None) is None:
-        raise Exception("DATABASE_URL environment variable not defined")
-    DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-    }
+    # 'default': {
+    #     "ENGINE": "django.db.backends.mysql",
+    #     "OPTIONS": {
+    #         "read_default_file": 'my.cnf',
+    #         "init_command": "SET default_storage_engine=INNODB",
+    #     },
+    # }
+}
 
 LANGUAGE_CODE = 'es-es'
 
